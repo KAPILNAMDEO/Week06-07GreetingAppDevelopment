@@ -7,6 +7,8 @@ import com.greetingappadevlopment.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GreetingService {
 
@@ -58,6 +60,13 @@ public class GreetingService {
         greetingRepository.save(greeting);
 
         return message;
+    }
+
+
+    //UC-05
+    // New method to find a greeting by ID
+    public Optional<Greeting> getGreetingById(Long id) {
+        return greetingRepository.findById(id);
     }
 
 }

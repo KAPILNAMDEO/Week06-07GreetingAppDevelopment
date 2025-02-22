@@ -70,12 +70,21 @@ public class GreetingController {
         return new Greeting(message);
     }
 
+    //UC-04
     @PostMapping("/savegreeting")
     public Greeting saveGreeting(@RequestParam(required = false) String firstName,
                                  @RequestParam(required = false) String lastName) {
         String message = greetingService.getGreetingMessage(firstName, lastName);
         return new Greeting(message);
     }
+
+    //U05
+    @GetMapping("/findgreeting/{id}")
+    public Greeting findGreetingById(@PathVariable Long id) {
+        return greetingService.getGreetingById(id)
+                .orElseThrow(() -> new RuntimeException("Greeting not found with ID: " + id));
+    }
+
 
 
 
