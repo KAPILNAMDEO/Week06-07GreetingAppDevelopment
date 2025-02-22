@@ -38,17 +38,31 @@ public class GreetingController {
     }
 
 
-    //UC2
+    
     private final GreetingService greetingService;
 
     @Autowired
     public GreetingController(GreetingService greetingService) {
         this.greetingService = greetingService;
     }
-
+/*
     //UC2
     @GetMapping("/greetservice")
     public Greeting getGreetings() {
         return new Greeting(greetingService.getGreetingMessage());
+    }
+*/
+
+    /*
+    UC3-Ability for the Greeting App to give Greeting message with
+        1. User First Name and Last Name or
+        2. With just First Name or Last Name based on User attributes provides or
+        3. Just Hello World.
+    */
+    @GetMapping("/greetuser")
+    public Greeting greetUser(@RequestParam(required = false) String firstName,
+                              @RequestParam(required = false) String lastName) {
+        String message = greetingService.getGreetingMessage(firstName, lastName);
+        return new Greeting(message);
     }
 }
