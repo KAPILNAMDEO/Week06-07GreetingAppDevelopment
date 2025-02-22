@@ -5,36 +5,50 @@ package com.greetingappadevlopment.controller;
 import com.greetingappadevlopment.model.Greeting;
 import org.springframework.web.bind.annotation.*;
 
+
+
+import com.greetingappadevlopment.service.GreetingService;
+import com.greetingappadevlopment.model.Greeting;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
 
-    // GET Request - Returns a Greeting object as JSON
+    //UC1
     @GetMapping("/greet")
     public Greeting getGreeting() {
-        return new Greeting(1L, "Hello from GET");
+        return new Greeting("Hello from BridgeLabz");
     }
 
-    // POST Request - Accepts a Greeting JSON and returns JSON response
-    @PostMapping
-    public Greeting postGreeting(@RequestBody Greeting request) {
-        return new Greeting(2L, "Hello from POST, received: " + request.getMessage());
+    @PostMapping("/greet")
+    public Greeting postGreeting(@RequestBody Greeting greeting) {
+        return greeting;
     }
 
-    // PUT Request - Accepts a Greeting JSON and updates it
-    @PutMapping
-    public Greeting putGreeting(@RequestBody Greeting request) {
-        return new Greeting(request.getId(), "Updated: " + request.getMessage());
+    @PutMapping("/greet")
+    public Greeting putGreeting(@RequestBody Greeting greeting) {
+        return new Greeting("Updated: " + greeting.getMessage());
     }
 
-    // DELETE Request - Accepts a Greeting JSON (optional) and deletes it
-    @DeleteMapping
-    public Greeting deleteGreeting(@RequestBody(required = false) Greeting request) {
-        if (request != null) {
-            return new Greeting(request.getId(), "Deleted: " + request.getMessage());
-        } else {
-            return new Greeting(0L, "No data provided");
-        }
+    @DeleteMapping("/greet")
+    public Greeting deleteGreeting() {
+        return new Greeting("Greeting deleted");
+    }
+
+
+    //UC2
+    private final GreetingService greetingService;
+
+    @Autowired
+    public GreetingController(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    //UC2
+    @GetMapping("/greetservice")
+    public Greeting getGreetings() {
+        return new Greeting(greetingService.getGreetingMessage());
     }
 }
-
