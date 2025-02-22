@@ -2,15 +2,30 @@ package com.greetingappadevlopment.service;
 
 
 
+import com.greetingappadevlopment.model.Greeting;
+import com.greetingappadevlopment.repository.GreetingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GreetingService {
-    /*
+
+
+    private final GreetingRepository greetingRepository;
+
+    @Autowired
+    public GreetingService(GreetingRepository greetingRepository) {
+        this.greetingRepository = greetingRepository;
+    }
+
+
+    /* UC-01
     public String getGreetingMessage() {
         return "Hello World";
     }
     */
+
+    /*UC-02
     public String getGreetingMessage(String firstName, String lastName) {
         if (firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()) {
             return "Hello, " + firstName + " " + lastName + "!";
@@ -21,6 +36,28 @@ public class GreetingService {
         } else {
             return "Hello World";
         }
+    }
+    */
+
+
+    //UC-04
+    public String getGreetingMessage(String firstName, String lastName) {
+        String message;
+        if (firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()) {
+            message = "Hello, " + firstName + " " + lastName + "!";
+        } else if (firstName != null && !firstName.isEmpty()) {
+            message = "Hello, " + firstName + "!";
+        } else if (lastName != null && !lastName.isEmpty()) {
+            message = "Hello, " + lastName + "!";
+        } else {
+            message = "Hello World";
+        }
+
+        // Save greeting to repository
+        Greeting greeting = new Greeting(message);
+        greetingRepository.save(greeting);
+
+        return message;
     }
 
 }

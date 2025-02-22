@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RequestMapping("/greeting")
 public class GreetingController {
 
+    /*
     //UC1
     @GetMapping("/greet")
     public Greeting getGreeting() {
@@ -38,20 +39,23 @@ public class GreetingController {
     }
 
 
-    
+    */
+
+
     private final GreetingService greetingService;
 
     @Autowired
     public GreetingController(GreetingService greetingService) {
         this.greetingService = greetingService;
     }
-/*
+
+    /*
     //UC2
     @GetMapping("/greetservice")
     public Greeting getGreetings() {
         return new Greeting(greetingService.getGreetingMessage());
     }
-*/
+    */
 
     /*
     UC3-Ability for the Greeting App to give Greeting message with
@@ -65,4 +69,16 @@ public class GreetingController {
         String message = greetingService.getGreetingMessage(firstName, lastName);
         return new Greeting(message);
     }
+
+    @PostMapping("/savegreeting")
+    public Greeting saveGreeting(@RequestParam(required = false) String firstName,
+                                 @RequestParam(required = false) String lastName) {
+        String message = greetingService.getGreetingMessage(firstName, lastName);
+        return new Greeting(message);
+    }
+
+
+
+
+
 }
