@@ -18,8 +18,9 @@ public class Greeting {
     }
 
     public Greeting(String message) {
-        this.message = message;
+        this.message = message.replaceAll("\\s+", " ").trim(); // Remove unwanted spaces and newlines
     }
+
 
 
     public Long getId() {

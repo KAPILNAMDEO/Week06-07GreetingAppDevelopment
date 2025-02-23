@@ -12,6 +12,8 @@ import com.greetingappadevlopment.model.Greeting;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
@@ -75,7 +77,7 @@ public class GreetingController {
     public Greeting saveGreeting(@RequestParam(required = false) String firstName,
                                  @RequestParam(required = false) String lastName) {
         String message = greetingService.getGreetingMessage(firstName, lastName);
-        return new Greeting(message);
+        return greetingService.saveGreeting(firstName, lastName);
     }
 
     //U05
@@ -85,6 +87,12 @@ public class GreetingController {
                 .orElseThrow(() -> new RuntimeException("Greeting not found with ID: " + id));
     }
 
+
+    //UC-06 Ability for the Greeti App to List all the Greeting Messages in the Repository
+    @GetMapping("/allgreetings")
+    public List<Greeting> getAllGreetings() {
+        return greetingService.getAllGreetings();
+    }
 
 
 
