@@ -3,6 +3,7 @@ package com.greetingappadevlopment.controller;
 
 
 import com.greetingappadevlopment.model.Greeting;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -93,9 +94,12 @@ public class GreetingController {
     public List<Greeting> getAllGreetings() {
         return greetingService.getAllGreetings();
     }
-
-
-
-
+    //UC-07Ability for the Greeting App to Edit a Greeting Messages in thE Repository
+    @PutMapping("/updategreeting/{id}")
+    public Greeting updateGreeting(
+            @PathVariable Long id,
+            @RequestParam String message) {
+        return greetingService.updateGreeting(id, message);
+    }
 
 }
