@@ -102,4 +102,14 @@ public class GreetingController {
         return greetingService.updateGreeting(id, message);
     }
 
+    //UC-08 Add Delete Endpoint in GreetingController.java
+    /*Uses @DeleteMapping to handle HTTP DELETE requests.
+Returns a success message when deletion is complete.*/
+    @DeleteMapping("/deletegreeting/{id}")
+    public ResponseEntity<String> deleteGreeting(@PathVariable Long id) {
+        greetingService.deleteGreeting(id);
+        return ResponseEntity.ok("Greeting with ID " + id + " deleted successfully.");
+    }
+
+
 }
